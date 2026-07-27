@@ -1,0 +1,39 @@
+body{
+    font-family:Arial,sans-serif;
+    background:#f7f8fc;
+    margin:0;
+}
+
+header{
+    background:#ff6b81;
+    color:white;
+    padding:25px;
+    text-align:center;
+}
+
+#birthdayContainer{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
+    padding:30px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+    padding:20px;
+    text-align:center;
+}
+
+.card img{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.today{
+    border:4px solid gold;
+    background:#fffbe8;
+}
