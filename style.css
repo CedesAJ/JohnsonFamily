@@ -21,6 +21,8 @@ header{
 .card{
     background:#003566;
     border-radius:15px;
+    border-style: solid;
+    border-color:#F0CB46;
     box-shadow:0 5px 15px rgba(0,0,0,.15);
     padding:20px;
     margin-bottom:10px;
@@ -31,6 +33,8 @@ header{
     width:150px;
     height:150px;
     border-radius:50%;
+    border-style: solid;
+    border-color:#F0CB46;
     object-fit:cover;
 }
 
