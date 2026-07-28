@@ -49,7 +49,7 @@ fetch("family.xlsx")
 
   // Sort by day
   pastBirthdays.sort((a, b) => a.birthday.getDate() - b.birthday.getDate());
-  upcomingBirthdays.sort((a, b) => a.birthday.getDate() - b.birthday.getDate());
+  upcomingBirthdays.sort((a, b) => b.birthday.getDate() - a.birthday.getDate());
 
   function createSection(title, list) {
 
