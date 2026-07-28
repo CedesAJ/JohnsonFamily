@@ -1,6 +1,6 @@
 const container = document.getElementById("birthdayContainer");
 
-fetch("birthdays.xlsx")
+fetch("family.xlsx")
   .then(response => {
     if (!response.ok) {
       throw new Error("Could not load birthdays.xlsx");
