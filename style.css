@@ -85,8 +85,9 @@ header{
     right: 15px;
     font-size: 30px;
     border: none;
+    background:#003566;
+    color: white;
     cursor: pointer;
-    z-index: 1000;
 }
 
 /* Mobile */
