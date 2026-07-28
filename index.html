@@ -4,20 +4,45 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Johnson Family</title>
-
 <link rel="stylesheet" href="style.css">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 
 <body>
 
+<button class="menu-toggle" aria-label="Toggle navigation">
+    ☰
+</button>
+
 <header>
-<h1>Johnson Family</h1>
-<p>The Family of Mary & S.D. Johnson</p>
+    <h1>Johnson Family</h1>
+    <p>The Family of Mary & S.D. Johnson</p>
 </header>
 
-<div id="birthdayContainer"></div>
+<nav class="navbar">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="more.html">More</a></li>
+    </ul>
+</nav>
+
+<main>
+
+<section id="home" class="page-section">
+    <h2>Home</h2>
+    <div id="birthdayContainer"></div>
+</section>
+
+<section id="gallery" class="page-section">
+    <h2>Gallery</h2>
+</section>
+
+<section id="about" class="page-section">
+    <h2>About</h2>
+</section>
+
+</main>
 
 <script src="script.js"></script>
 
