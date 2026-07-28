@@ -1,6 +1,6 @@
 body{
     font-family:Arial,sans-serif;
-    background:#F0CB46;
+    background:white;
     margin:0;
 }
 
@@ -19,7 +19,7 @@ header{
 }
 
 .card{
-    background:white;
+    background:#F0CB46;
     border-radius:15px;
     box-shadow:0 5px 15px rgba(0,0,0,.15);
     padding:20px;
