@@ -7,58 +7,114 @@ fetch("birthdays.xlsx")
     }
     return response.arrayBuffer();
   })
-  .then(data => {
+.then(data => {
 
-    const workbook = XLSX.read(data, { type: "array" });
-    const sheet = workbook.Sheets[workbook.SheetNames[0]];
-    const people = XLSX.utils.sheet_to_json(sheet, { raw: true });
+  const workbook = XLSX.read(data, { type: "array" });
+  const sheet = workbook.Sheets[workbook.SheetNames[0]];
+  const people = XLSX.utils.sheet_to_json(sheet, { raw: true });
 
-    const today = new Date();
+  const today = new Date();
+  const currentMonth = today.getMonth();
+  const currentDay = today.getDate();
 
-    people.forEach(person => {
+  const todayBirthdays = [];
+  const pastBirthdays = [];
+  const upcomingBirthdays = [];
 
-      let birthday;
+  people.forEach(person => {
 
-      // Handle Excel date values
-      if (typeof person.Birthday === "number") {
-        const excelDate = XLSX.SSF.parse_date_code(person.Birthday);
-        birthday = new Date(
-          excelDate.y,
-          excelDate.m - 1,
-          excelDate.d
-        );
-      } else {
-        birthday = new Date(person.Birthday);
-      }
+    let birthday;
 
-      const isToday =
-        birthday.getDate() === today.getDate() &&
-        birthday.getMonth() === today.getMonth();
+    if (typeof person.Birthday === "number") {
+      const excelDate = XLSX.SSF.parse_date_code(person.Birthday);
+      birthday = new Date(excelDate.y, excelDate.m - 1, excelDate.d);
+    } else {
+      birthday = new Date(person.Birthday);
+    }
+
+    // Only show birthdays in the current month
+    if (birthday.getMonth() !== currentMonth) return;
+
+    const day = birthday.getDate();
+
+    if (day === currentDay) {
+      todayBirthdays.push({ person, birthday });
+    } else if (day < currentDay) {
+      pastBirthdays.push({ person, birthday });
+    } else {
+      upcomingBirthdays.push({ person, birthday });
+    }
+
+  });
+
+  // Sort by day
+  pastBirthdays.sort((a, b) => a.birthday.getDate() - b.birthday.getDate());
+  upcomingBirthdays.sort((a, b) => a.birthday.getDate() - b.birthday.getDate());
+
+  function createSection(title, list) {
+
+    if (list.length === 0) return;
+
+    const heading = document.createElement("h1");
+    heading.className = "section-title";
+    heading.textContent = title;
+
+    container.appendChild(heading);
+
+    const section = document.createElement("div");
+    section.className = "birthday-section";
+
+    list.forEach(({ person, birthday }) => {
+
+      const isToday = birthday.getDate() === currentDay;
 
       const card = document.createElement("div");
       card.className = isToday ? "card today" : "card";
 
       card.innerHTML = `
-        <img src="${person.Photo}"
-             alt="${person.Name}"
-             style="width:150px;height:150px;border-radius:50%;object-fit:cover;"
-             onerror="this.src='https://via.placeholder.com/150?text=No+Photo'">
+        <div class="photo-wrapper">
+          <img
+            src="${person.Photo}"
+            alt="${person.Name}"
+            class="profile-photo"
+            onerror="this.src='https://via.placeholder.com/180?text=No+Photo'">
+        </div>
 
-        <h2>${person.Name}</h2>
+        <div class="card-body">
 
-        <p><strong>Birthday:</strong>
-        ${birthday.toLocaleDateString()}</p>
+          <h2>${person.Name}</h2>
 
-        <p>${person.Message}</p>
+          <p class="birthday">
+            🎂 ${birthday.toLocaleDateString(undefined,{
+              month:'long',
+              day:'numeric'
+            })}
+          </p>
 
-        ${isToday ? "<h2>🎉 HAPPY BIRTHDAY! 🎂🎈</h2>" : ""}
+          <p class="message">${person.Message || ""}</p>
+
+          ${isToday ? `
+            <div class="birthday-banner">
+              🎉 HAPPY BIRTHDAY! 🎂
+            </div>
+          ` : ""}
+
+        </div>
       `;
 
-      container.appendChild(card);
+      section.appendChild(card);
 
     });
 
-  })
+    container.appendChild(section);
+
+  }
+
+  createSection("🎉 Today's Birthdays", todayBirthdays);
+  createSection("📅 Earlier This Month", pastBirthdays);
+  createSection("🎂 Coming Up This Month", upcomingBirthdays);
+
+})
   .catch(error => {
     console.error(error);
 
