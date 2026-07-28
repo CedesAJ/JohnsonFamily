@@ -1,3 +1,11 @@
+const menuButton = document.querySelector(".menu-toggle");
+const nav = document.querySelector(".navbar");
+
+menuButton.addEventListener("click", () => {
+    nav.classList.toggle("active");
+});
+
+
 const container = document.getElementById("birthdayContainer");
 
 fetch("family.xlsx")
