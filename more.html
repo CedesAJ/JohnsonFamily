@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Employee Birthdays</title>
+<title>Family Birthdays</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
@@ -62,7 +62,7 @@ tr:nth-child(even){
 
 <script>
 
-fetch("Family.xlsx")
+fetch("family.xlsx")
 .then(response => response.arrayBuffer())
 .then(data => {
 
@@ -99,7 +99,7 @@ fetch("Family.xlsx")
 })
 .catch(error => {
     console.error(error);
-    alert("Unable to load Family.xlsx");
+    alert("Unable to load family.xlsx");
 });
 
 </script>
