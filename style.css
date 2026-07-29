@@ -69,6 +69,7 @@ header{
     background:#fffbe8;
 }
 
+h2, p{text-align:center;}
 
 /* Mobile */
 @media screen and (max-width:600px) {
