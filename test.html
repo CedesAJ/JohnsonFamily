@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Johnson Family</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<style>
+table, th, td {
+  border:1px solid black;
+}
+</style>
+<body>
+
+<div class="topnav" id="myTopnav">
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+  <a href="index.html">Home</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="more.html">More</a>
+</div>
+
+
+<header>
+    <h1>The Johnson Family</h1>
+    <p>The Family of Mary & S.D. Johnson</p>
+</header>
+
+
+<p>All Birthdays</p>
+
+<table id="familyTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Birth Date</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+
+fetch("family.xlsx")
+.then(response => response.arrayBuffer())
+.then(data => {
+
+    const workbook = XLSX.read(data, {
+        type: "array",
+        cellDates: true
+    });
+
+    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+
+    let rows = XLSX.utils.sheet_to_json(worksheet);
+
+
+    // Sort by Birth Date - oldest first
+    rows.sort((a, b) => {
+
+        let dateA = new Date(a["Birth Date"]);
+        let dateB = new Date(b["Birth Date"]);
+
+        return dateA - dateB;
+
+    });
+
+
+    const tbody = document.querySelector("#familyTable tbody");
+
+    rows.forEach(row => {
+
+        let birthDate = row["Birth Date"] || "";
+
+        if (birthDate instanceof Date) {
+            birthDate = birthDate.toLocaleDateString();
+        }
+
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${row.Name || ""}</td>
+            <td>${birthDate}</td>
+        `;
+
+        tbody.appendChild(tr);
+
+    });
+
+})
+.catch(error => {
+    console.error(error);
+    alert("Unable to load family.xlsx");
+});
+
+</script>
+   
+<script src="script.js"></script>
+
+</body>
+</html>
