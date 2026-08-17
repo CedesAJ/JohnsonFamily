@@ -115,8 +115,8 @@ fetch("family.xlsx")
   }
 
   createSection("🎉 Today's Birthdays", todayBirthdays);
-  createSection("📅 Earlier This Month", pastBirthdays);
-  createSection("🎂 Coming Up This Month", upcomingBirthdays);
+  createSection("🎊 Earlier This Month", pastBirthdays);
+  createSection("🎂 Coming Up", upcomingBirthdays);
 
 })
   .catch(error => {
