@@ -67,6 +67,7 @@ header{
 .today{
     border:4px solid gold;
     background:#fffbe8;
+    color:#003566;    
 }
 
 h2, p{text-align:center;}
